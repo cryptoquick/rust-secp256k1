@@ -75,3 +75,7 @@ required-features = ["rand-std"]
 [workspace]
 members = ["secp256k1-sys"]
 exclude = ["no_std_test"]
+
+[profile.release]
+lto = "fat"
+codegen-units = 1

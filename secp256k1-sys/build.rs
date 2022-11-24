@@ -39,14 +39,15 @@ fn main() {
                // TODO these three should be changed to use libgmp, at least until secp PR 290 is merged
                .define("USE_NUM_NONE", Some("1"))
                .define("USE_FIELD_INV_BUILTIN", Some("1"))
-               .define("USE_SCALAR_INV_BUILTIN", Some("1"));
+               .define("USE_SCALAR_INV_BUILTIN", Some("1"))
+               .define("CFLAGS", Some("O3"));
 
     if cfg!(feature = "lowmemory") {
         base_config.define("ECMULT_WINDOW_SIZE", Some("4")); // A low-enough value to consume negligible memory
         base_config.define("ECMULT_GEN_PREC_BITS", Some("2"));
     } else {
         base_config.define("ECMULT_GEN_PREC_BITS", Some("4"));
-        base_config.define("ECMULT_WINDOW_SIZE", Some("15")); // This is the default in the configure file (`auto`)
+        base_config.define("ECMULT_WINDOW_SIZE", Some("24")); // This is the default in the configure file (`auto`)
     }
     base_config.define("USE_EXTERNAL_DEFAULT_CALLBACKS", Some("1"));
     #[cfg(feature = "recovery")]
